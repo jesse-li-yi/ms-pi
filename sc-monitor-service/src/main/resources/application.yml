@@ -1,0 +1,23 @@
+server:
+  port: 8989
+
+---
+# service config 'development'
+spring:
+  profiles: development
+
+eureka:
+  instance:
+    hostName: localhost
+    leaseRenewalIntervalInSeconds: 60
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostName}:8761/eureka/
+    prefer-same-zone-eureka: false
+    register-with-eureka: false
+
+turbine:
+  aggregator:
+    clusterConfig: ApiGateway
+  appConfig: Mobile-Gateway, Web-Gateway
+  clusterNameExpression: metadata['cluster']

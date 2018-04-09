@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: Mobile-Gateway
+  profiles:
+    active: development
+  http:
+    encoding:
+      force: true
+  mvc:
+    favicon:
+      enabled: false
+  resources:
+    add-mappings: false
+
+info:
+  name: ${spring.application.name}
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "hystrix.stream"]
+
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      enabled: false
+
+---
+spring:
+  profiles: qa
+  cloud:
+    config:
+      uri: http://qa.config.bcbs.org:8888
+      profile: qa
+
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://prod.config.bcbs.org:8888
+      profile: production

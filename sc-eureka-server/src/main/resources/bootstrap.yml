@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: Eureka-Server
+  profiles:
+    active: development
+  mvc:
+    favicon:
+      enabled: false
+
+info:
+  name: ${spring.application.name}
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+
+---
+spring:
+  profiles: development
+  cloud:
+    config:
+      enabled: false
+
+---
+spring:
+  profiles: qa
+  cloud:
+    config:
+      uri: http://qa.config.bcbs.org:8888
+      profile: qa
+
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      uri: http://prod.config.bcbs.org:8888
+      profile: production
