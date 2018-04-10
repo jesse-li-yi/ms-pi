@@ -14,8 +14,7 @@ spring:
 eureka:
   instance:
     hostName: prod.eureka.bcbs.org
-    leaseRenewalIntervalInSeconds: 60
   client:
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostName}:8761/eureka/
+    service-url:
+      default-zone: http://${eureka.instance.hostName}:8761/eureka/
     fetch-registry: false
