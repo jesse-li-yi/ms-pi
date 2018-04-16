@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TeacherServiceImpl extends GenericServiceImpl<Teacher, Integer, TeacherRepository>
+class TeacherServiceImpl extends GenericServiceImpl<Teacher, Integer, TeacherRepository>
         implements TeacherService {
 
     @Autowired

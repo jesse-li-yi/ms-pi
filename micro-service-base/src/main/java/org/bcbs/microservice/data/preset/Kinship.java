@@ -1,4 +1,4 @@
-package org.bcbs.microservice.data;
+package org.bcbs.microservice.data.preset;
 
 public enum Kinship {
     FATHER, MOTHER, OTHER

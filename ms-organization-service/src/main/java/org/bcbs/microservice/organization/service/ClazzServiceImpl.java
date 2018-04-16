@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClazzServiceImpl extends GenericServiceImpl<Clazz, Integer, ClazzRepository> implements ClazzService {
+class ClazzServiceImpl extends GenericServiceImpl<Clazz, Integer, ClazzRepository> implements ClazzService {
 
     @Autowired
     public ClazzServiceImpl(ClazzRepository clazzRepository) {

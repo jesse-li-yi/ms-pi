@@ -16,7 +16,7 @@ eureka:
   client:
     service-url:
       default-zone: http://${eureka.instance.hostName}:8761/eureka/
-    registry-fetch-interval-seconds: 10
+    registry-fetch-interval-seconds: 5
 
 api-gateway:
   transmission:

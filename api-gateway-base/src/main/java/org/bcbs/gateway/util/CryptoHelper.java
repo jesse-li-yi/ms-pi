@@ -1,4 +1,4 @@
-package org.bcbs.apigateway.util;
+package org.bcbs.gateway.util;
 
 import org.springframework.stereotype.Component;
 
@@ -47,8 +47,9 @@ public class CryptoHelper {
                 MessageDigest md = MessageDigest.getInstance(algorithm);
                 md.update(data, offset, length);
                 digest = md.digest();
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 // Just ignore the exception & return null.
+                digest = null;
             }
         }
         return digest;

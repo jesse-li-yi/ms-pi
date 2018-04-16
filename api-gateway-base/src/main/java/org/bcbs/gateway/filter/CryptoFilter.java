@@ -1,6 +1,6 @@
-package org.bcbs.apigateway.filter;
+package org.bcbs.gateway.filter;
 
-import org.bcbs.apigateway.util.CryptoHelper;
+import org.bcbs.gateway.util.CryptoHelper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 
 @Component
-@Order(4)
+@Order(3)
 @ConditionalOnProperty(prefix = "api-gateway.transmission", value = "crypto")
 class CryptoFilter implements Filter {
 
@@ -39,7 +39,7 @@ class CryptoFilter implements Filter {
     }
 
     // Request wrapper for data decrypting.
-    private class DecryptedRequest extends HttpServletRequestWrapper {
+    private static class DecryptedRequest extends HttpServletRequestWrapper {
 
         private final ByteArrayInputStream bais;
 
@@ -57,7 +57,7 @@ class CryptoFilter implements Filter {
         }
 
         @Override
-        public BufferedReader getReader() throws IOException {
+        public BufferedReader getReader() {
             return new BufferedReader(new InputStreamReader(getInputStream()));
         }
 
@@ -88,7 +88,7 @@ class CryptoFilter implements Filter {
     }
 
     // Response wrapper for data encrypting.
-    private class EncryptedResponse extends HttpServletResponseWrapper {
+    private static class EncryptedResponse extends HttpServletResponseWrapper {
 
         private final ByteArrayOutputStream baos;
 
@@ -99,7 +99,7 @@ class CryptoFilter implements Filter {
         }
 
         @Override
-        public PrintWriter getWriter() throws IOException {
+        public PrintWriter getWriter() {
             return new PrintWriter(getOutputStream());
         }
 

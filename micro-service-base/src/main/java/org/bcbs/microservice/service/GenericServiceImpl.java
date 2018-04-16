@@ -11,26 +11,31 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericServiceImpl<T extends GenericEntity<I>, I, R extends GenericRepository<T, I>>
-        implements GenericService<T, I> {
+public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends Serializable,
+        R extends GenericRepository<T, I>> implements GenericService<T, I> {
 
     protected final R repository;
 
-    public GenericServiceImpl(R repository) {
+    protected GenericServiceImpl(R repository) {
         this.repository = repository;
     }
 
     @Override
     public T create(@NonNull T t) {
-        t.setId(null);
+        t.setIsDeleted(false);
         return this.repository.saveAndFlush(t);
     }
 
     @Override
     public T update(@NonNull T t) {
-        return this.repository.existsById(t.getId()) ? this.repository.saveAndFlush(t) : null;
+        if (this.repository.existsById(t.getId())) {
+            this.repository.saveAndFlush(t);
+            return this.repository.findById(t.getId()).orElse(null);
+        } else
+            return null;
     }
 
     @Override

@@ -4,6 +4,8 @@ import org.bcbs.microservice.dal.model.GenericEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface GenericRepository<T extends GenericEntity<I>, I>
+import java.io.Serializable;
+
+public interface GenericRepository<T extends GenericEntity<I>, I extends Serializable>
         extends JpaRepository<T, I>, JpaSpecificationExecutor<T> {
 }

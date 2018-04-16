@@ -8,9 +8,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface GenericService<T extends GenericEntity<I>, I> {
+public interface GenericService<T extends GenericEntity<I>, I extends Serializable> {
 
     T create(@NonNull T t);
 

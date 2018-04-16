@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PresidentServiceImpl extends GenericServiceImpl<President, Integer, PresidentRepository>
+class PresidentServiceImpl extends GenericServiceImpl<President, Integer, PresidentRepository>
         implements PresidentService {
 
     @Autowired

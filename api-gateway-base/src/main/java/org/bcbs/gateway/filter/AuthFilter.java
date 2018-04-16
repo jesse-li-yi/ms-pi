@@ -1,4 +1,4 @@
-package org.bcbs.apigateway.filter;
+package org.bcbs.gateway.filter;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 @Component
-@Order(2)
+@Order(1)
 class AuthFilter implements Filter {
 
     @Override

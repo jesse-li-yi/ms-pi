@@ -1,4 +1,4 @@
-package org.bcbs.apigateway.filter;
+package org.bcbs.gateway.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
 @Component
-@Order(3)
+@Order(2)
 @ConditionalOnProperty(prefix = "api-gateway.transmission", value = "cache")
 class CacheFilter implements Filter {
 
@@ -69,7 +69,7 @@ class CacheFilter implements Filter {
     }
 
     // Response wrapper for data caching.
-    private class CachedResponse extends HttpServletResponseWrapper {
+    private static class CachedResponse extends HttpServletResponseWrapper {
 
         private final ByteArrayOutputStream baos;
 

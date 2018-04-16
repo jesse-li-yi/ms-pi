@@ -7,6 +7,7 @@ spring:
     encoding:
       force: true
   mvc:
+    throw-exception-if-no-handler-found: true
     favicon:
       enabled: false
   resources:

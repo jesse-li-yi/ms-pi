@@ -1,11 +1,14 @@
-package org.bcbs.apigateway.route;
+package org.bcbs.gateway.route;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.core.lang.NonNullApi;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.AbstractClientHttpResponse;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -24,18 +27,17 @@ class ApiFallbackProvider implements FallbackProvider {
         return new FallbackResponse(cause);
     }
 
-    private class FallbackResponse implements ClientHttpResponse {
+    @NonNullApi
+    private static class FallbackResponse extends AbstractClientHttpResponse {
 
         private final HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
-        private String message = "Sorry, service is unavailable now!";
+        private final ApiFaultResponse body;
 
         FallbackResponse(Throwable cause) {
-            if (cause != null)
-                this.message = cause.toString();
+            this.body = new ApiFaultResponse(this.status, cause);
         }
 
         @Override
-        @NonNull
         public HttpStatus getStatusCode() {
             return this.status;
         }
@@ -46,7 +48,6 @@ class ApiFallbackProvider implements FallbackProvider {
         }
 
         @Override
-        @NonNull
         public String getStatusText() {
             return this.status.getReasonPhrase();
         }
@@ -57,13 +58,15 @@ class ApiFallbackProvider implements FallbackProvider {
         }
 
         @Override
-        @NonNull
         public InputStream getBody() {
-            return new ByteArrayInputStream(this.message.getBytes());
+            try {
+                return new ByteArrayInputStream(new ObjectMapper().writeValueAsBytes(this.body));
+            } catch (JsonProcessingException ex) {
+                return new ByteArrayInputStream(ex.getMessage().getBytes());
+            }
         }
 
         @Override
-        @NonNull
         public HttpHeaders getHeaders() {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

@@ -2,9 +2,9 @@ package org.bcbs.microservice.organization.dal.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.bcbs.microservice.dal.model.Account;
+import org.bcbs.microservice.dal.model.AccountEntity;
 import org.bcbs.microservice.dal.model.GenericEntity;
-import org.bcbs.microservice.data.Kinship;
+import org.bcbs.microservice.data.preset.Kinship;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -12,13 +12,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "parent")
 public class Parent extends GenericEntity<Integer> {
 
     @Embedded
-    private Account account;
+    private AccountEntity account;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
