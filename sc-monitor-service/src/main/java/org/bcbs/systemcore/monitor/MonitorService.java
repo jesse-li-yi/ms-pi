@@ -19,7 +19,7 @@ public class MonitorService {
         SpringApplication.run(MonitorService.class, args);
     }
 
-    @RequestMapping("/")
+    @RequestMapping(path = "/")
     public String hystrixHome() {
         return "forward:/hystrix";
     }

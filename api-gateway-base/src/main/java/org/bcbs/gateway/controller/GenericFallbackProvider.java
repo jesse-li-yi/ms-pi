@@ -1,21 +1,21 @@
-package org.bcbs.gateway.route;
+package org.bcbs.gateway.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.micrometer.core.lang.NonNullApi;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.AbstractClientHttpResponse;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 @Component
-class ApiFallbackProvider implements FallbackProvider {
+class GenericFallbackProvider implements FallbackProvider {
 
     @Override
     public String getRoute() {
@@ -27,17 +27,17 @@ class ApiFallbackProvider implements FallbackProvider {
         return new FallbackResponse(cause);
     }
 
-    @NonNullApi
     private static class FallbackResponse extends AbstractClientHttpResponse {
 
         private final HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
-        private final ApiFaultResponse body;
+        private final FaultResponse body;
 
         FallbackResponse(Throwable cause) {
-            this.body = new ApiFaultResponse(this.status, cause);
+            this.body = new FaultResponse(this.status, cause);
         }
 
         @Override
+        @NonNull
         public HttpStatus getStatusCode() {
             return this.status;
         }
@@ -48,6 +48,7 @@ class ApiFallbackProvider implements FallbackProvider {
         }
 
         @Override
+        @NonNull
         public String getStatusText() {
             return this.status.getReasonPhrase();
         }
@@ -58,6 +59,7 @@ class ApiFallbackProvider implements FallbackProvider {
         }
 
         @Override
+        @NonNull
         public InputStream getBody() {
             try {
                 return new ByteArrayInputStream(new ObjectMapper().writeValueAsBytes(this.body));
@@ -67,6 +69,7 @@ class ApiFallbackProvider implements FallbackProvider {
         }
 
         @Override
+        @NonNull
         public HttpHeaders getHeaders() {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

@@ -1,9 +1,9 @@
 package org.bcbs.microservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.bcbs.microservice.constant.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
-import org.bcbs.microservice.data.GenericResponse;
-import org.bcbs.microservice.data.view.PublicView;
+import org.bcbs.microservice.exception.DataNotFoundException;
 import org.bcbs.microservice.service.def.GenericService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,41 +21,36 @@ public abstract class GenericController<T extends GenericEntity<I>, I extends Se
         this.service = service;
     }
 
-    // Find all.
     @GetMapping
-    @JsonView(PublicView.class)
+    @JsonView(value = {DataView.TypicalView.class})
     public GenericResponse findAll() {
         return GenericResponse.success(this.service.findAll((root, cq, cb) -> cb.not(root.get("isDeleted")),
                 PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id"))));
     }
 
-    // Find by id.
-    @GetMapping(value = "/{id}")
-    @JsonView(PublicView.class)
-    public GenericResponse find(@PathVariable I id) {
-        return GenericResponse.success(this.service.find(id));
+    @GetMapping(path = "/{id}")
+    @JsonView(value = {DataView.TypicalView.class})
+    public GenericResponse find(@PathVariable I id) throws DataNotFoundException {
+        return GenericResponse.success(this.service.findById(id));
     }
 
-    // Create class.
     @PostMapping
-    @JsonView(PublicView.class)
-    public GenericResponse create(@JsonView(PublicView.class) @Validated @RequestBody T t) {
-        return GenericResponse.success(this.service.create(t));
+    @JsonView(value = {DataView.TypicalView.class})
+    public GenericResponse create(@JsonView(value = {DataView.ExtensiveView.class}) @Validated @RequestBody T t) {
+        t.setIsDeleted(false);
+        return GenericResponse.success(this.service.save(t));
     }
 
-    // Update class.
-    // todo: only update content on demand
-    @PutMapping(value = "/{id}")
-    @JsonView(PublicView.class)
-    public GenericResponse update(@PathVariable I id, @JsonView(PublicView.class) @Validated @RequestBody T t) {
-        t.setId(id);
-        return GenericResponse.success(this.service.update(t));
+    @PutMapping(path = "/{id}")
+    @JsonView(value = {DataView.TypicalView.class})
+    public GenericResponse update(@PathVariable I id, @JsonView(value = {DataView.BasicView.class}) @RequestBody T t)
+            throws DataNotFoundException {
+        return GenericResponse.success(this.service.update(id, t));
     }
 
-    // Delete class by id.
-    @DeleteMapping(value = "/{id}")
-    @JsonView(PublicView.class)
-    public GenericResponse delete(@PathVariable I id) {
+    @DeleteMapping(path = "/{id}")
+    @JsonView(value = {DataView.TypicalView.class})
+    public GenericResponse delete(@PathVariable I id) throws DataNotFoundException {
         return GenericResponse.success(this.service.delete(id));
     }
 }

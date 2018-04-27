@@ -39,10 +39,10 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Annotation processors -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

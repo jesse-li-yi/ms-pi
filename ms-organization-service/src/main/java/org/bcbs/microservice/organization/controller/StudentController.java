@@ -1,20 +1,20 @@
 package org.bcbs.microservice.organization.controller;
 
 import org.bcbs.microservice.controller.GenericController;
-import org.bcbs.microservice.organization.dal.model.Clazz;
-import org.bcbs.microservice.organization.service.def.ClazzService;
+import org.bcbs.microservice.organization.dal.model.Student;
+import org.bcbs.microservice.organization.service.def.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/class")
+@RequestMapping(path = "/student")
 @ResponseBody
-class ClazzController extends GenericController<Clazz, Integer, ClazzService> {
+class StudentController extends GenericController<Student, Integer, StudentService> {
 
     @Autowired
-    public ClazzController(ClazzService clazzService) {
-        super(clazzService);
+    public StudentController(StudentService studentService) {
+        super(studentService);
     }
 }

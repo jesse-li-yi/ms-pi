@@ -1,4 +1,4 @@
-package org.bcbs.gateway.route;
+package org.bcbs.gateway.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
-class ApiExceptionHandler {
+class GenericExceptionHandler {
 
     @ExceptionHandler(value = {Exception.class})
-    public ApiFaultResponse genericExceptionHandler(Exception ex) {
-        return new ApiFaultResponse(HttpStatus.SERVICE_UNAVAILABLE, ex);
+    public FaultResponse genericExceptionHandler(Exception ex) {
+        return new FaultResponse(HttpStatus.SERVICE_UNAVAILABLE, ex);
     }
 }

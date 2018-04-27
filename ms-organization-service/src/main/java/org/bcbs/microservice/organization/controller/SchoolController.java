@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/school")
+@RequestMapping(path = "/school")
 @ResponseBody
 class SchoolController extends GenericController<School, Integer, SchoolService> {
 

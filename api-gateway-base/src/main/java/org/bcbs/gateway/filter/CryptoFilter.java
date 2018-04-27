@@ -3,7 +3,9 @@ package org.bcbs.gateway.filter;
 import org.bcbs.gateway.util.CryptoHelper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -15,27 +17,17 @@ import java.io.*;
 @Component
 @Order(3)
 @ConditionalOnProperty(prefix = "api-gateway.transmission", value = "crypto")
-class CryptoFilter implements Filter {
+class CryptoFilter extends OncePerRequestFilter {
 
     @Override
-    public void init(FilterConfig filterConfig) {
-        // do nothing
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-        DecryptedRequest decryptedRequest = new DecryptedRequest((HttpServletRequest) servletRequest);
-        EncryptedResponse encryptedResponse = new EncryptedResponse((HttpServletResponse) servletResponse);
+    protected void doFilterInternal(@NonNull HttpServletRequest httpServletRequest,
+                                    @NonNull HttpServletResponse httpServletResponse,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
+        DecryptedRequest decryptedRequest = new DecryptedRequest(httpServletRequest);
+        EncryptedResponse encryptedResponse = new EncryptedResponse(httpServletResponse);
 
         filterChain.doFilter(decryptedRequest, encryptedResponse);
-
         encryptedResponse.flushBuffer();
-    }
-
-    @Override
-    public void destroy() {
-        // do nothing
     }
 
     // Request wrapper for data decrypting.

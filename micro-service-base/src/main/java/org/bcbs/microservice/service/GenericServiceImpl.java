@@ -2,6 +2,8 @@ package org.bcbs.microservice.service;
 
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.dal.repository.GenericRepository;
+import org.bcbs.microservice.dal.utility.EntityUtil;
+import org.bcbs.microservice.exception.DataNotFoundException;
 import org.bcbs.microservice.service.def.GenericService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,23 +26,25 @@ public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends S
     }
 
     @Override
-    public T create(@NonNull T t) {
-        t.setIsDeleted(false);
+    public T save(@NonNull T t) {
         return this.repository.saveAndFlush(t);
     }
 
     @Override
-    public T update(@NonNull T t) {
-        if (this.repository.existsById(t.getId())) {
-            this.repository.saveAndFlush(t);
-            return this.repository.findById(t.getId()).orElse(null);
-        } else
-            return null;
+    public T update(@NonNull I id, @NonNull T t) throws DataNotFoundException {
+        T origin = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+        EntityUtil.copyNonNullProperties(t, origin);
+        return this.repository.saveAndFlush(origin);
     }
 
     @Override
-    public T find(@NonNull I id) {
-        return this.repository.findById(id).orElse(null);
+    public T findById(@NonNull I id) throws DataNotFoundException {
+        return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+    }
+
+    @Override
+    public T findOne(Specification<T> specification) throws DataNotFoundException {
+        return this.repository.findOne(specification).orElseThrow(DataNotFoundException::new);
     }
 
     @Override
@@ -59,13 +63,10 @@ public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends S
     }
 
     @Override
-    public T delete(@NonNull I id) {
-        T t = this.repository.findById(id).orElse(null);
-        if (t != null) {
-            t.setIsDeleted(true);
-            t = this.repository.saveAndFlush(t);
-        }
-        return t;
+    public T delete(@NonNull I id) throws DataNotFoundException {
+        T t = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
+        t.setIsDeleted(true);
+        return this.repository.saveAndFlush(t);
     }
 
     @Override
