@@ -18,13 +18,13 @@ import java.util.Date;
 @MappedSuperclass
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class GenericEntity<I extends Serializable> implements Serializable {
+public abstract class GenericEntity<N extends Serializable> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
     @JsonView(value = {DataView.BasicView.class})
-    private I id;
+    private N id;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

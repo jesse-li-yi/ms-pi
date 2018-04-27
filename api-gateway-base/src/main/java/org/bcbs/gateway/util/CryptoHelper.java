@@ -19,7 +19,7 @@ public class CryptoHelper {
     }
 
     public static String doubleMd5Encode(String data) {
-        return (data == null || data.isEmpty()) ? null : md5Encode(md5Encode(data));
+        return md5Encode(md5Encode(data));
     }
 
     private static String byteToHex(byte[] data) {

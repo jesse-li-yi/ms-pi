@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 
-public abstract class GenericController<T extends GenericEntity<I>, I extends Serializable,
-        S extends GenericService<T, I>> {
+public abstract class GenericController<T extends GenericEntity<N>, N extends Serializable,
+        S extends GenericService<T, N>> {
 
     protected final S service;
 
@@ -30,7 +30,7 @@ public abstract class GenericController<T extends GenericEntity<I>, I extends Se
 
     @GetMapping(path = "/{id}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse find(@PathVariable I id) throws DataNotFoundException {
+    public GenericResponse find(@PathVariable final N id) throws DataNotFoundException {
         return GenericResponse.success(this.service.findById(id));
     }
 
@@ -43,14 +43,14 @@ public abstract class GenericController<T extends GenericEntity<I>, I extends Se
 
     @PutMapping(path = "/{id}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse update(@PathVariable I id, @JsonView(value = {DataView.BasicView.class}) @RequestBody T t)
+    public GenericResponse update(@PathVariable final N id, @JsonView(value = {DataView.BasicView.class}) @RequestBody T t)
             throws DataNotFoundException {
         return GenericResponse.success(this.service.update(id, t));
     }
 
     @DeleteMapping(path = "/{id}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse delete(@PathVariable I id) throws DataNotFoundException {
+    public GenericResponse delete(@PathVariable final N id) throws DataNotFoundException {
         return GenericResponse.success(this.service.delete(id));
     }
 }

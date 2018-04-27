@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.io.Serializable;
 
-public interface GenericRepository<T extends GenericEntity<I>, I extends Serializable>
-        extends JpaRepository<T, I>, JpaSpecificationExecutor<T> {
+public interface GenericRepository<T extends GenericEntity<N>, N extends Serializable>
+        extends JpaRepository<T, N>, JpaSpecificationExecutor<T> {
 }

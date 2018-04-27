@@ -33,13 +33,13 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
     // Begin of president api.
     @GetMapping(path = "/{id}/president")
     @JsonView(value = {DataView.BasicView.class})
-    public GenericResponse getPresident(@PathVariable Integer id) throws DataNotFoundException {
+    public GenericResponse getPresident(@PathVariable final Integer id) throws DataNotFoundException {
         return GenericResponse.success(this.service.findById(id).getPresidents());
     }
 
     @PostMapping(path = "/{id}/president")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse newPresident(@PathVariable Integer id,
+    public GenericResponse newPresident(@PathVariable final Integer id,
                                         @JsonView(value = {DataView.ExtensiveView.class})
                                         @Validated @RequestBody President president)
             throws DataNotFoundException {
@@ -49,7 +49,7 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
 
     @PutMapping(path = "/{id}/president/{pid}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse addPresident(@PathVariable Integer id, @PathVariable Integer pid)
+    public GenericResponse addPresident(@PathVariable final Integer id, @PathVariable final Integer pid)
             throws DataNotFoundException {
         President president = this.presidentService.findById(pid);
         president.setInstitution(this.service.findById(id));
@@ -58,7 +58,7 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
 
     @DeleteMapping(path = "/{id}/president/{pid}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse removePresident(@PathVariable Integer id, @PathVariable Integer pid)
+    public GenericResponse removePresident(@PathVariable final Integer id, @PathVariable final Integer pid)
             throws DataNotFoundException {
         President president = this.presidentService.findOne((root, cq, cb) ->
                 cb.and(cb.equal(root.get(School_.id), pid),
@@ -70,12 +70,12 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
     // Begin of school api.
     @GetMapping(path = "/{id}/school")
     @JsonView(value = {DataView.BasicView.class})
-    public GenericResponse getSchool(@PathVariable Integer id) throws DataNotFoundException {
+    public GenericResponse getSchool(@PathVariable final Integer id) throws DataNotFoundException {
         return GenericResponse.success(this.service.findById(id).getSchools());
     }
 
     @PostMapping(path = "/{id}/school")
-    public GenericResponse newSchool(@PathVariable Integer id,
+    public GenericResponse newSchool(@PathVariable final Integer id,
                                      @JsonView(value = {DataView.ExtensiveView.class})
                                      @Validated @RequestBody School school)
             throws DataNotFoundException {
@@ -85,7 +85,7 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
 
     @PutMapping(path = "/{id}/school/{sid}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse addSchool(@PathVariable Integer id, @PathVariable Integer sid)
+    public GenericResponse addSchool(@PathVariable final Integer id, @PathVariable final Integer sid)
             throws DataNotFoundException {
         School school = this.schoolService.findById(sid);
         school.setInstitution(this.service.findById(id));
@@ -94,7 +94,7 @@ class InstitutionController extends GenericController<Institution, Integer, Inst
 
     @DeleteMapping(path = "/{id}/school/{sid}")
     @JsonView(value = {DataView.TypicalView.class})
-    public GenericResponse removeSchool(@PathVariable Integer id, @PathVariable Integer sid)
+    public GenericResponse removeSchool(@PathVariable final Integer id, @PathVariable final Integer sid)
             throws DataNotFoundException {
         School school = this.schoolService.findOne((root, cq, cb) ->
                 cb.and(cb.equal(root.get(School_.id), sid),

@@ -12,13 +12,13 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericService<T extends GenericEntity<I>, I extends Serializable> {
+public interface GenericService<T extends GenericEntity<N>, N extends Serializable> {
 
     T save(@NonNull T t);
 
-    T update(@NonNull I id, @NonNull T t) throws DataNotFoundException;
+    T update(@NonNull N id, @NonNull T t) throws DataNotFoundException;
 
-    T findById(@NonNull I id) throws DataNotFoundException;
+    T findById(@NonNull N id) throws DataNotFoundException;
 
     T findOne(@Nullable Specification<T> specification) throws DataNotFoundException;
 
@@ -28,7 +28,7 @@ public interface GenericService<T extends GenericEntity<I>, I extends Serializab
 
     Page<T> findAll(@Nullable Specification<T> specification, Pageable pageable);
 
-    T delete(@NonNull I id) throws DataNotFoundException;
+    T delete(@NonNull N id) throws DataNotFoundException;
 
-    List<T> deleteAll(@NonNull List<I> ids);
+    List<T> deleteAll(@NonNull List<N> ids);
 }

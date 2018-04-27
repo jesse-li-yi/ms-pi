@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends Serializable,
-        R extends GenericRepository<T, I>> implements GenericService<T, I> {
+public abstract class GenericServiceImpl<T extends GenericEntity<N>, N extends Serializable,
+        S extends GenericRepository<T, N>> implements GenericService<T, N> {
 
-    protected final R repository;
+    protected final S repository;
 
-    protected GenericServiceImpl(R repository) {
+    protected GenericServiceImpl(S repository) {
         this.repository = repository;
     }
 
@@ -31,14 +31,14 @@ public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends S
     }
 
     @Override
-    public T update(@NonNull I id, @NonNull T t) throws DataNotFoundException {
+    public T update(@NonNull N id, @NonNull T t) throws DataNotFoundException {
         T origin = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
         EntityUtil.copyNonNullProperties(t, origin);
         return this.repository.saveAndFlush(origin);
     }
 
     @Override
-    public T findById(@NonNull I id) throws DataNotFoundException {
+    public T findById(@NonNull N id) throws DataNotFoundException {
         return this.repository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
@@ -63,7 +63,7 @@ public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends S
     }
 
     @Override
-    public T delete(@NonNull I id) throws DataNotFoundException {
+    public T delete(@NonNull N id) throws DataNotFoundException {
         T t = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
         t.setIsDeleted(true);
         return this.repository.saveAndFlush(t);
@@ -71,7 +71,7 @@ public abstract class GenericServiceImpl<T extends GenericEntity<I>, I extends S
 
     @Override
     @Transactional
-    public List<T> deleteAll(@NonNull List<I> ids) {
+    public List<T> deleteAll(@NonNull List<N> ids) {
         List<T> ts = this.repository.findAllById(ids);
         if (!ts.isEmpty()) {
             for (T t : ts)
