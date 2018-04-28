@@ -7,7 +7,10 @@ import org.springframework.beans.BeanWrapperImpl;
 import java.beans.PropertyDescriptor;
 import java.util.stream.Stream;
 
-public abstract class EntityUtil extends BeanUtils {
+public final class EntityUtil extends BeanUtils {
+
+    private EntityUtil() {
+    }
 
     public static void copyNonNullProperties(Object source, Object target) {
         copyProperties(source, target, getNullPropertyNames(source));

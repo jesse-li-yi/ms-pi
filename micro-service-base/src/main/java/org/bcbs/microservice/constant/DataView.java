@@ -2,6 +2,9 @@ package org.bcbs.microservice.constant;
 
 public final class DataView {
 
+    private DataView() {
+    }
+
     public interface BasicView {
     }
 

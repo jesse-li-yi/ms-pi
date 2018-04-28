@@ -1,11 +1,9 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
-import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.constant.DataView;
 import org.bcbs.microservice.constant.Gender;
+import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
@@ -15,8 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "student")
 public class Student extends GenericEntity<Integer> {
@@ -52,4 +48,53 @@ public class Student extends GenericEntity<Integer> {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "students", cascade = {CascadeType.REFRESH})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Parent> parents;
+
+    // Getter & setter.
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Clazz getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Clazz clazz) {
+        this.clazz = clazz;
+    }
+
+    public Set<Parent> getParents() {
+        return parents;
+    }
+
+    public void setParents(Set<Parent> parents) {
+        this.parents = parents;
+    }
 }

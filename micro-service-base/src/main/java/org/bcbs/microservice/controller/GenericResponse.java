@@ -2,7 +2,6 @@ package org.bcbs.microservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Value;
 import org.bcbs.microservice.constant.DataView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,7 +12,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Value
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class GenericResponse {
 
@@ -55,6 +53,23 @@ public class GenericResponse {
         return new GenericResponse(status, null, message);
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    //
     private static class ViewPage<T> extends PageImpl<T> {
 
         ViewPage(final Page<T> page) {

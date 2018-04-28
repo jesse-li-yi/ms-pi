@@ -1,8 +1,6 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.constant.DataView;
 import org.hibernate.annotations.NotFound;
@@ -13,8 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "institution")
 public class Institution extends GenericEntity<Integer> {
@@ -38,4 +34,37 @@ public class Institution extends GenericEntity<Integer> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "institution")
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<School> schools;
+
+    // Getter & setter.
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<President> getPresidents() {
+        return presidents;
+    }
+
+    public void setPresidents(Set<President> presidents) {
+        this.presidents = presidents;
+    }
+
+    public Set<School> getSchools() {
+        return schools;
+    }
+
+    public void setSchools(Set<School> schools) {
+        this.schools = schools;
+    }
 }

@@ -1,10 +1,8 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
-import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
@@ -13,8 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "school")
 public class School extends GenericEntity<Integer> {
@@ -43,4 +39,45 @@ public class School extends GenericEntity<Integer> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Clazz> clazzes;
+
+    // Getter & setter.
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Set<President> getPresidents() {
+        return presidents;
+    }
+
+    public void setPresidents(Set<President> presidents) {
+        this.presidents = presidents;
+    }
+
+    public Set<Clazz> getClazzes() {
+        return clazzes;
+    }
+
+    public void setClazzes(Set<Clazz> clazzes) {
+        this.clazzes = clazzes;
+    }
 }

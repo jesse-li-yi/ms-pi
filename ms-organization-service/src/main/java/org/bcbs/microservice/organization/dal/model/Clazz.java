@@ -1,10 +1,8 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
-import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
@@ -13,8 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "clazz")
 public class Clazz extends GenericEntity<Integer> {
@@ -37,4 +33,37 @@ public class Clazz extends GenericEntity<Integer> {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "clazzes", cascade = {CascadeType.REFRESH})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Teacher> teachers;
+
+    // Getter & setter.
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 }

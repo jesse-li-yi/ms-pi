@@ -1,19 +1,15 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Getter;
-import lombok.Setter;
+import org.bcbs.microservice.constant.DataView;
 import org.bcbs.microservice.dal.model.AccountEntity;
 import org.bcbs.microservice.dal.model.GenericEntity;
-import org.bcbs.microservice.constant.DataView;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "president")
 public class President extends GenericEntity<Integer> {
@@ -31,4 +27,29 @@ public class President extends GenericEntity<Integer> {
             inverseJoinColumns = {@JoinColumn(name = "school_id")})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<School> schools;
+
+    // Getter & setter.
+    public AccountEntity getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountEntity account) {
+        this.account = account;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Set<School> getSchools() {
+        return schools;
+    }
+
+    public void setSchools(Set<School> schools) {
+        this.schools = schools;
+    }
 }

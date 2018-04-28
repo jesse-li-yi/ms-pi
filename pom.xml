@@ -64,16 +64,4 @@
         </repository>
     </repositories>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok-maven-plugin</artifactId>
-                    <version>1.16.20.0</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
 </project>
