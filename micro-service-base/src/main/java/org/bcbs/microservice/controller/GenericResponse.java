@@ -2,7 +2,7 @@ package org.bcbs.microservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.constraint.DataView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;

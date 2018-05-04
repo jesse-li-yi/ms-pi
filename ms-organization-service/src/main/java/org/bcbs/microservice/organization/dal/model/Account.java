@@ -1,34 +1,34 @@
-package org.bcbs.microservice.dal.model;
+package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
-import org.bcbs.microservice.constant.Gender;
+import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.constraint.Gender;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Embeddable
-public class AccountEntity implements Serializable {
+class Account implements Serializable {
 
-    @NotEmpty(message = "Invalid phone number of account.")
+    @NotBlank(message = "Invalid phone number of account.")
     @Length(min = 11, max = 11)
     @Column(length = 11, nullable = false, unique = true)
     @JsonView(value = {DataView.BasicView.class})
     private String phoneNo;
 
-    @NotEmpty(message = "Invalid password of account.")
+    @NotBlank(message = "Invalid password of account.")
     @Length(max = 64)
     @Column(length = 64, nullable = false)
     @JsonView(value = {DataView.ExtensiveView.class})
     private String password;
 
-    @NotEmpty(message = "Invalid name of account.")
+    @NotBlank(message = "Invalid name of account.")
     @Length(max = 64)
     @Column(length = 64, nullable = false)
     @JsonView(value = {DataView.BasicView.class})

@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 
 @Component
-@Order(3)
-@ConditionalOnProperty(prefix = "api-gateway.transmission", value = "crypto")
+@Order(2)
+@ConditionalOnProperty(prefix = "api-gateway", value = "data-crypto", havingValue = "true")
 class CryptoFilter extends OncePerRequestFilter {
 
     @Override

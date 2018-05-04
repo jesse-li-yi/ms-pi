@@ -1,27 +1,27 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
 @Table(name = "school")
 public class School extends GenericEntity<Integer> {
 
-    @NotEmpty(message = "Invalid sn of school.")
+    @NotBlank(message = "Invalid sn of school.")
     @Length(max = 16)
     @Column(length = 16, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
     private String sn;
 
-    @NotEmpty(message = "Invalid name of school.")
+    @NotBlank(message = "Invalid name of school.")
     @Length(max = 32)
     @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
@@ -35,6 +35,10 @@ public class School extends GenericEntity<Integer> {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "schools", cascade = {CascadeType.REFRESH})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<President> presidents;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Set<Teacher> teachers;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
     @NotFound(action = NotFoundAction.IGNORE)
@@ -71,6 +75,14 @@ public class School extends GenericEntity<Integer> {
 
     public void setPresidents(Set<President> presidents) {
         this.presidents = presidents;
+    }
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
     }
 
     public Set<Clazz> getClazzes() {

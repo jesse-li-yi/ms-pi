@@ -3,7 +3,7 @@ package org.bcbs.microservice.dal.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.constraint.DataView;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

@@ -1,21 +1,21 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
 @Table(name = "clazz")
 public class Clazz extends GenericEntity<Integer> {
 
-    @NotEmpty(message = "Invalid name of class.")
+    @NotBlank(message = "Invalid name of class.")
     @Length(max = 32)
     @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.BasicView.class})

@@ -1,6 +1,5 @@
 package org.bcbs.microservice.organization.dal.model;
 
-import org.bcbs.microservice.dal.model.AccountEntity;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -13,7 +12,7 @@ import java.util.Set;
 public class Parent extends GenericEntity<Integer> {
 
     @Embedded
-    private AccountEntity account;
+    private Account account;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "parent_student", joinColumns = {@JoinColumn(name = "parent_id")},
@@ -22,11 +21,11 @@ public class Parent extends GenericEntity<Integer> {
     private Set<Student> students;
 
     // Getter & setter.
-    public AccountEntity getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(AccountEntity account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

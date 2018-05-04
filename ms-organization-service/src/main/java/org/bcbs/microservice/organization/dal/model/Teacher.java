@@ -1,6 +1,7 @@
 package org.bcbs.microservice.organization.dal.model;
 
-import org.bcbs.microservice.dal.model.AccountEntity;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -13,7 +14,12 @@ import java.util.Set;
 public class Teacher extends GenericEntity<Integer> {
 
     @Embedded
-    private AccountEntity account;
+    private Account account;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JsonView(value = {DataView.TypicalView.class})
+    private School school;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "teacher_clazz", joinColumns = {@JoinColumn(name = "teacher_id")},
@@ -22,12 +28,20 @@ public class Teacher extends GenericEntity<Integer> {
     private Set<Clazz> clazzes;
 
     // Getter & setter.
-    public AccountEntity getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(AccountEntity account) {
+    public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 
     public Set<Clazz> getClazzes() {

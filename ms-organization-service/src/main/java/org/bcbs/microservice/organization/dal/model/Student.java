@@ -1,15 +1,15 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
-import org.bcbs.microservice.constant.Gender;
+import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.constraint.Gender;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -17,13 +17,13 @@ import java.util.Set;
 @Table(name = "student")
 public class Student extends GenericEntity<Integer> {
 
-    @NotEmpty(message = "Invalid sn of student.")
+    @NotBlank(message = "Invalid sn of student.")
     @Length(max = 16)
     @Column(length = 16, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
     private String sn;
 
-    @NotEmpty(message = "Invalid name of student.")
+    @NotBlank(message = "Invalid name of student.")
     @Length(max = 16)
     @Column(nullable = false)
     @JsonView(value = {DataView.BasicView.class})

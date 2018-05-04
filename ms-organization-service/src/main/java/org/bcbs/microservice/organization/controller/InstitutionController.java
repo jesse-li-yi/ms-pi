@@ -1,7 +1,7 @@
 package org.bcbs.microservice.organization.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
+import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.controller.GenericController;
 import org.bcbs.microservice.controller.GenericResponse;
 import org.bcbs.microservice.exception.DataNotFoundException;

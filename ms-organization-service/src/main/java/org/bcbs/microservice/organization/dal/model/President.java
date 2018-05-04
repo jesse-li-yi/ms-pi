@@ -1,8 +1,7 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constant.DataView;
-import org.bcbs.microservice.dal.model.AccountEntity;
+import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -15,7 +14,7 @@ import java.util.Set;
 public class President extends GenericEntity<Integer> {
 
     @Embedded
-    private AccountEntity account;
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -29,11 +28,11 @@ public class President extends GenericEntity<Integer> {
     private Set<School> schools;
 
     // Getter & setter.
-    public AccountEntity getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(AccountEntity account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

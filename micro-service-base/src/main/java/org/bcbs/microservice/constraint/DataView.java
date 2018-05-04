@@ -1,4 +1,4 @@
-package org.bcbs.microservice.constant;
+package org.bcbs.microservice.constraint;
 
 public final class DataView {
 
