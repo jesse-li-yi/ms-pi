@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.bcbs.microservice.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.exception.DataNotFoundException;
-import org.bcbs.microservice.service.def.GenericService;
+import org.bcbs.microservice.service.GenericService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;

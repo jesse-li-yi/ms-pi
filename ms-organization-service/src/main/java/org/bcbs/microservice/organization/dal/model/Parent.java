@@ -12,7 +12,7 @@ import java.util.Set;
 public class Parent extends GenericEntity<Integer> {
 
     @Embedded
-    private Account account;
+    private PersonalInfo personalInfo;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "parent_student", joinColumns = {@JoinColumn(name = "parent_id")},
@@ -21,12 +21,12 @@ public class Parent extends GenericEntity<Integer> {
     private Set<Student> students;
 
     // Getter & setter.
-    public Account getAccount() {
-        return account;
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setPersonalInfo(PersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
     }
 
     public Set<Student> getStudents() {

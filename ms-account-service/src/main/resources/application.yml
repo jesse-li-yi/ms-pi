@@ -1,0 +1,26 @@
+server:
+  port: 0
+
+---
+# service server 'development'
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:mysql://localhost:3306/bcbs_db?useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update #validate
+
+eureka:
+  instance:
+    hostName: localhost
+    lease-expiration-duration-in-seconds: 180
+    lease-renewal-interval-in-seconds: 60
+  client:
+    service-url:
+      default-zone: http://${eureka.instance.hostName}:8761/eureka/
+    fetch-registry: false

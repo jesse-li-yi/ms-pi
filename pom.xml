@@ -16,10 +16,8 @@
         <module>api-gateway-mobile</module>
         <module>api-gateway-web</module>
         <module>micro-service-base</module>
-        <module>ms-evaluation-service</module>
-        <module>ms-examination-service</module>
+        <module>ms-account-service</module>
         <module>ms-organization-service</module>
-        <module>ms-training-service</module>
     </modules>
 
     <properties>

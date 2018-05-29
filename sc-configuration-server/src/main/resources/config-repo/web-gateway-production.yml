@@ -17,12 +17,10 @@ api-gateway:
 
 zuul:
   ignored-services: "*"
+  ribbon-isolation-strategy: thread
+  sensitive-headers: Cookie,Set-Cookie
   routes:
-    Evaluation-Service:
-      path: /eval/**
-    Examination-Service:
-      path: /exam/**
+    Account-Service:
+      path: /uaa/**
     Organization-Service:
       path: /org/**
-    Training-Service:
-      path: /train/**

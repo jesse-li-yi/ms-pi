@@ -14,7 +14,7 @@ import java.util.Set;
 public class President extends GenericEntity<Integer> {
 
     @Embedded
-    private Account account;
+    private PersonalInfo personalInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -28,12 +28,12 @@ public class President extends GenericEntity<Integer> {
     private Set<School> schools;
 
     // Getter & setter.
-    public Account getAccount() {
-        return account;
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setPersonalInfo(PersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
     }
 
     public Institution getInstitution() {

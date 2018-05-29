@@ -1,13 +1,10 @@
 package org.bcbs.gateway.util;
 
-import org.springframework.stereotype.Component;
-
 import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.Random;
 
-@Component
-public class CryptoHelper {
+public abstract class CryptoHelper {
 
     private static final String XOR_CRYPTO_KEY = "org.bcbs.crypto";
 
