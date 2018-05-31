@@ -15,13 +15,13 @@ import java.util.Set;
 @Table(name = "institution")
 public class Institution extends GenericEntity<Integer> {
 
-    @NotBlank(message = "Invalid sn of institution.")
-    @Length(max = 16)
-    @Column(length = 16, nullable = false)
+    @NotBlank(message = "Invalid sn.")
+    @Length(max = 32)
+    @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
     private String sn;
 
-    @NotBlank(message = "Invalid name of institution.")
+    @NotBlank(message = "Invalid name.")
     @Length(max = 32)
     @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.BasicView.class})

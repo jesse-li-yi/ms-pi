@@ -16,13 +16,13 @@ import java.io.Serializable;
 @Embeddable
 class PersonalInfo implements Serializable {
 
-    @NotBlank(message = "Invalid name of account.")
+    @NotBlank(message = "Invalid name.")
     @Length(max = 64)
     @Column(length = 64, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
     private String name;
 
-    @NotNull(message = "Invalid gender of account.")
+    @NotNull(message = "Invalid gender.")
     @Enumerated(value = EnumType.STRING)
     @Column(length = 6, nullable = false)
     @JsonView(value = {DataView.BasicView.class})

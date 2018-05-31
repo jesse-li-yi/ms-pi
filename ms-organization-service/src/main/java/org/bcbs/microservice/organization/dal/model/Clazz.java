@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "clazz")
 public class Clazz extends GenericEntity<Integer> {
 
-    @NotBlank(message = "Invalid name of class.")
+    @NotBlank(message = "Invalid name.")
     @Length(max = 32)
     @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.BasicView.class})
