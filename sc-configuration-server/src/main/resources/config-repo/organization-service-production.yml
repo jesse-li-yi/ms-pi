@@ -10,6 +10,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  jackson:
+    property-naming-strategy: com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy
 
 eureka:
   instance:

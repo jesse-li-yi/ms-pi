@@ -1,7 +1,7 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.common.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -22,6 +22,7 @@ public class Student extends GenericEntity<Integer> {
     private String sn;
 
     @Embedded
+    @JsonView(value = {DataView.BasicView.class})
     private PersonalInfo personalInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +30,7 @@ public class Student extends GenericEntity<Integer> {
     @JsonView(value = {DataView.TypicalView.class})
     private Clazz clazz;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "students", cascade = {CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "students", cascade = {CascadeType.REFRESH})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Parent> parents;
 

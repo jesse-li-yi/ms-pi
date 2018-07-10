@@ -1,13 +1,16 @@
 package org.bcbs.microservice.controller;
 
-import org.bcbs.microservice.exception.DataNotFoundException;
+import org.bcbs.microservice.common.GenericResponse;
+import org.bcbs.microservice.common.exception.DataNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+@ControllerAdvice
 @RestControllerAdvice
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 class GenericExceptionHandler {

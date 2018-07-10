@@ -1,9 +1,10 @@
 package org.bcbs.microservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.common.GenericResponse;
+import org.bcbs.microservice.common.constraint.DataView;
+import org.bcbs.microservice.common.exception.DataNotFoundException;
 import org.bcbs.microservice.dal.model.GenericEntity;
-import org.bcbs.microservice.exception.DataNotFoundException;
 import org.bcbs.microservice.service.GenericService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -37,7 +38,7 @@ public abstract class GenericController<T extends GenericEntity<N>, N extends Se
     @PostMapping
     @JsonView(value = {DataView.TypicalView.class})
     public GenericResponse create(@JsonView(value = {DataView.ExtensiveView.class}) @Validated @RequestBody T t) {
-        t.setIsDeleted(false);
+        t.setDeleted(false);
         return GenericResponse.success(this.service.save(t));
     }
 

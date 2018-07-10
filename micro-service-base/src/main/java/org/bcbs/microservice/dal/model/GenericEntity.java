@@ -3,7 +3,7 @@ package org.bcbs.microservice.dal.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.common.constraint.DataView;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -63,11 +63,11 @@ public abstract class GenericEntity<N extends Serializable> implements Serializa
         this.modifyTime = modifyTime;
     }
 
-    public Boolean getIsDeleted() {
+    public Boolean getDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 }

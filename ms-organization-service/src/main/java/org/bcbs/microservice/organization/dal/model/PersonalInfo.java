@@ -1,8 +1,8 @@
 package org.bcbs.microservice.organization.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
-import org.bcbs.microservice.constraint.Gender;
+import org.bcbs.microservice.common.constraint.DataView;
+import org.bcbs.microservice.common.constraint.Gender;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Embeddable
-class PersonalInfo implements Serializable {
+public class PersonalInfo implements Serializable {
 
     @NotBlank(message = "Invalid name.")
     @Length(max = 64)

@@ -1,7 +1,7 @@
 package org.bcbs.microservice.service;
 
+import org.bcbs.microservice.common.exception.DataNotFoundException;
 import org.bcbs.microservice.dal.model.GenericEntity;
-import org.bcbs.microservice.exception.DataNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

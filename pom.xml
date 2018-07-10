@@ -11,7 +11,8 @@
     <modules>
         <module>sc-configuration-server</module>
         <module>sc-eureka-server</module>
-        <module>sc-monitor-service</module>
+        <module>sc-monitor-server</module>
+        <module>sc-auth-library</module>
         <module>api-gateway-base</module>
         <module>api-gateway-mobile</module>
         <module>api-gateway-web</module>

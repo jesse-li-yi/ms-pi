@@ -1,9 +1,9 @@
 package org.bcbs.microservice.service.impl;
 
+import org.bcbs.microservice.common.exception.DataNotFoundException;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.bcbs.microservice.dal.repository.GenericRepository;
 import org.bcbs.microservice.dal.utility.EntityUtil;
-import org.bcbs.microservice.exception.DataNotFoundException;
 import org.bcbs.microservice.service.GenericService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,7 +65,7 @@ public abstract class GenericServiceImpl<T extends GenericEntity<N>, N extends S
     @Override
     public T delete(@NonNull N id) throws DataNotFoundException {
         T t = this.repository.findById(id).orElseThrow(DataNotFoundException::new);
-        t.setIsDeleted(true);
+        t.setDeleted(true);
         return this.repository.saveAndFlush(t);
     }
 
@@ -75,7 +75,7 @@ public abstract class GenericServiceImpl<T extends GenericEntity<N>, N extends S
         List<T> ts = this.repository.findAllById(ids);
         if (!ts.isEmpty()) {
             for (T t : ts)
-                t.setIsDeleted(true);
+                t.setDeleted(true);
             ts = this.repository.saveAll(ts);
             this.repository.flush();
         }

@@ -1,7 +1,8 @@
 package org.bcbs.microservice.account.dal.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.common.constraint.DataView;
+import org.bcbs.microservice.common.constraint.RegexPattern;
 import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,13 +10,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "account")
 public class Account extends GenericEntity<Integer> {
 
-    @NotBlank(message = "Invalid phone number.")
-    @Length(min = 11, max = 11)
+    @Pattern(regexp = RegexPattern.PHONE_NO, message = "Invalid phone number.")
     @Column(length = 11, nullable = false, unique = true)
     @JsonView(value = {DataView.BasicView.class})
     private String phoneNo;
@@ -25,6 +27,11 @@ public class Account extends GenericEntity<Integer> {
     @Column(length = 64, nullable = false)
     @JsonView(value = {DataView.ExtensiveView.class})
     private String password;
+
+    @NotNull(message = "Invalid active status.")
+    @Column(columnDefinition = "bit not null default true")
+    @JsonView(value = {DataView.ExtensiveView.class})
+    private Boolean isActive;
 
     // Getter & setter.
     public String getPhoneNo() {
@@ -41,5 +48,13 @@ public class Account extends GenericEntity<Integer> {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

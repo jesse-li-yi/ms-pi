@@ -1,10 +1,10 @@
 package org.bcbs.microservice.organization.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bcbs.microservice.constraint.DataView;
+import org.bcbs.microservice.common.GenericResponse;
+import org.bcbs.microservice.common.constraint.DataView;
+import org.bcbs.microservice.common.exception.DataNotFoundException;
 import org.bcbs.microservice.controller.GenericController;
-import org.bcbs.microservice.controller.GenericResponse;
-import org.bcbs.microservice.exception.DataNotFoundException;
 import org.bcbs.microservice.organization.dal.model.*;
 import org.bcbs.microservice.organization.service.InstitutionService;
 import org.bcbs.microservice.organization.service.PresidentService;

@@ -1,9 +1,8 @@
 package org.bcbs.gateway.filter;
 
-import org.bcbs.gateway.util.CryptoHelper;
+import org.bcbs.gateway.common.utility.XorCryptoHelper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,15 +14,15 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 
 @Component
+@Order(value = -1)
 @ConditionalOnProperty(prefix = "api-gateway", value = "data-crypto", havingValue = "true")
 class CryptoFilter extends OncePerRequestFilter {
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest httpServletRequest,
-                                    @NonNull HttpServletResponse httpServletResponse,
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
-        DecryptedRequest decryptedRequest = new DecryptedRequest(httpServletRequest);
-        EncryptedResponse encryptedResponse = new EncryptedResponse(httpServletResponse);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        DecryptedRequest decryptedRequest = new DecryptedRequest(request);
+        EncryptedResponse encryptedResponse = new EncryptedResponse(response);
 
         filterChain.doFilter(decryptedRequest, encryptedResponse);
         encryptedResponse.flushBuffer();
@@ -44,7 +43,7 @@ class CryptoFilter extends OncePerRequestFilter {
             while ((read = is.read(buff)) > 0)
                 os.write(buff, 0, read);
 
-            this.bais = new ByteArrayInputStream(CryptoHelper.xorDecrypt(os.toByteArray()));
+            this.bais = new ByteArrayInputStream(XorCryptoHelper.decrypt(os.toByteArray()));
         }
 
         @Override
@@ -120,7 +119,7 @@ class CryptoFilter extends OncePerRequestFilter {
                 super.resetBuffer();
 
                 PrintWriter writer = super.getWriter();
-                byte[] bytes = CryptoHelper.xorEncrypt(this.baos.toByteArray());
+                byte[] bytes = XorCryptoHelper.encrypt(this.baos.toByteArray());
 
                 for (byte b : bytes)
                     writer.write(bytes[b]);

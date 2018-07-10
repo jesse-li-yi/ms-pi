@@ -1,5 +1,6 @@
 package org.bcbs.gateway.controller;
 
+import org.bcbs.gateway.common.FaultResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
