@@ -3,6 +3,7 @@ package org.bcbs.microservice.organization.dal.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bcbs.microservice.common.constraint.DataView;
 import org.bcbs.microservice.dal.model.GenericEntity;
+import org.bcbs.microservice.organization.dal.model.embeddable.PersonalInfo;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
@@ -26,6 +27,8 @@ public class Student extends GenericEntity<Integer> {
     private PersonalInfo personalInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "class_id",
+            foreignKey = @ForeignKey(name = "fk_student_class_id"))
     @NotFound(action = NotFoundAction.IGNORE)
     @JsonView(value = {DataView.TypicalView.class})
     private Clazz clazz;

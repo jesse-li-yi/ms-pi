@@ -1,4 +1,4 @@
-package org.bcbs.microservice.organization.dal.model;
+package org.bcbs.microservice.organization.dal.model.embeddable;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bcbs.microservice.common.constraint.DataView;

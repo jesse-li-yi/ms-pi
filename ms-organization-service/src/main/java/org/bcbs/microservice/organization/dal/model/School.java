@@ -28,6 +28,8 @@ public class School extends GenericEntity<Integer> {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "institution_id",
+            foreignKey = @ForeignKey(name = "fk_school_institution_id"))
     @NotFound(action = NotFoundAction.IGNORE)
     @JsonView(value = {DataView.TypicalView.class})
     private Institution institution;

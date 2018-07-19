@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class ParentServiceImpl extends GenericServiceImpl<Parent, Integer, ParentRepository> implements ParentService {
+class ParentServiceImpl extends GenericServiceImpl<Parent, Integer, ParentRepository>
+        implements ParentService {
 
     @Autowired
     public ParentServiceImpl(ParentRepository parentRepository) {

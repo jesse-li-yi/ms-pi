@@ -99,10 +99,6 @@ public class TokenAuthentication {
         return authorities;
     }
 
-    public void setAuthorities(String authorities) {
-        this.authorities = StringUtils.isEmpty(authorities) ? null : authorities;
-    }
-
     private void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         ArrayList<String> grantedAuthorities = new ArrayList<>();
         if (!CollectionUtils.isEmpty(authorities))
@@ -110,6 +106,10 @@ public class TokenAuthentication {
                 grantedAuthorities.add(authority.getAuthority());
 
         this.authorities = grantedAuthorities.isEmpty() ? null : String.join(AUTHORITY_DELIMITER, grantedAuthorities);
+    }
+
+    public void setAuthorities(String authorities) {
+        this.authorities = StringUtils.isEmpty(authorities) ? null : authorities;
     }
 
     public int getAccessTokenTtlSeconds() {

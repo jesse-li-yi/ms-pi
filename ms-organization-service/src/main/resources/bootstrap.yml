@@ -16,6 +16,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  cloud:
+    refresh:
+      refreshable: none
 
 info:
   name: ${spring.application.name}

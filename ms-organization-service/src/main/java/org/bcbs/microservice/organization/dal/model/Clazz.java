@@ -22,6 +22,8 @@ public class Clazz extends GenericEntity<Integer> {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id",
+            foreignKey = @ForeignKey(name = "fk_class_school_id"))
     @NotFound(action = NotFoundAction.IGNORE)
     @JsonView(value = {DataView.TypicalView.class})
     private School school;

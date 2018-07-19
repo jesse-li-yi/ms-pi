@@ -19,7 +19,7 @@ eureka:
     registry-fetch-interval-seconds: 5
 
 api-gateway:
-  data-crypto: false
+  encrypt-data: false
 
 zuul:
   ignored-services: "*"

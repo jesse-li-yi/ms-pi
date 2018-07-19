@@ -15,7 +15,7 @@ import java.io.*;
 
 @Component
 @Order(value = -1)
-@ConditionalOnProperty(prefix = "api-gateway", value = "data-crypto", havingValue = "true")
+@ConditionalOnProperty(prefix = "api-gateway", value = "encrypt-data", havingValue = "true")
 class CryptoFilter extends OncePerRequestFilter {
 
     @Override

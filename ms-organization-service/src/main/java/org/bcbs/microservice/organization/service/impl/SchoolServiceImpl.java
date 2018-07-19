@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class SchoolServiceImpl extends GenericServiceImpl<School, Integer, SchoolRepository> implements SchoolService {
+class SchoolServiceImpl extends GenericServiceImpl<School, Integer, SchoolRepository>
+        implements SchoolService {
 
     @Autowired
     public SchoolServiceImpl(SchoolRepository schoolRepository) {
