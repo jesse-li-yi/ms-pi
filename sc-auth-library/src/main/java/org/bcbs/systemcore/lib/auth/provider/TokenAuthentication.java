@@ -53,13 +53,13 @@ public class TokenAuthentication {
     }
 
     public PreAuthenticatedAuthenticationToken toAuthentication() {
-        LinkedHashSet<GrantedAuthority> grantedAuthorities = null;
+        LinkedHashSet<GrantedAuthority> grantedAuthorities = new LinkedHashSet<>();
         if (!StringUtils.isEmpty(this.authorities)) {
-            grantedAuthorities = new LinkedHashSet<>();
             for (String authority : this.authorities.split(AUTHORITY_DELIMITER))
                 grantedAuthorities.add(new SimpleGrantedAuthority(authority.toLowerCase()));
         }
-        return new PreAuthenticatedAuthenticationToken(this.username, null, grantedAuthorities);
+        return new PreAuthenticatedAuthenticationToken(this.username, null,
+                grantedAuthorities.isEmpty() ? null : grantedAuthorities);
     }
 
     // Getter & setter.

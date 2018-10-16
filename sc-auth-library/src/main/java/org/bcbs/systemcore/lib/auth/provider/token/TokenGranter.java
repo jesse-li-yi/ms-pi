@@ -2,7 +2,7 @@ package org.bcbs.systemcore.lib.auth.provider.token;
 
 import org.bcbs.systemcore.lib.auth.common.AccessToken;
 import org.bcbs.systemcore.lib.auth.provider.ClientDetails;
-import org.bcbs.systemcore.lib.auth.provider.TokenRequest;
+import org.bcbs.systemcore.lib.auth.provider.token.request.TokenRequest;
 
 public interface TokenGranter {
 

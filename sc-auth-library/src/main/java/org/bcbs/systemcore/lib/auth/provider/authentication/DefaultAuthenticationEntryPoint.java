@@ -1,6 +1,5 @@
 package org.bcbs.systemcore.lib.auth.provider.authentication;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -26,7 +25,6 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
 
     private class AuthenticationFailureResponse {
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING)
         private final Date timestamp;
         private final int status;
         private final String message;

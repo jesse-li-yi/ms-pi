@@ -1,14 +1,14 @@
-package org.bcbs.microservice.common.constraint;
+package org.bcbs.systemcore.lib.auth.common.constraint;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Gender {
-    MALE, FEMALE;
+public enum RevokeType {
+    ACCESS_TOKEN, USER_TOKENS;
 
     @JsonCreator
-    public static Gender fromValue(String value) {
-        return Gender.valueOf(value.toUpperCase());
+    public static RevokeType fromValue(String value) {
+        return RevokeType.valueOf(value.toUpperCase());
     }
 
     @JsonValue

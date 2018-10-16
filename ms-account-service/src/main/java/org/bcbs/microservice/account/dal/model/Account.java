@@ -7,6 +7,8 @@ import org.bcbs.microservice.dal.model.GenericEntity;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -60,6 +62,11 @@ public class Account extends GenericEntity<Integer> {
                     @Index(name = "fk_ag_group_id", columnList = "group_id")})
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<UserGroup> groups;
+
+    // Conversation to user details.
+    public UserDetails toUserDetails() {
+        return new User(this.phoneNo, this.password, null);
+    }
 
     // Getter & setter.
     public String getPhoneNo() {

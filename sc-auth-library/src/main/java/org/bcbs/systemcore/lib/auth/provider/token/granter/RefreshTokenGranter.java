@@ -4,7 +4,7 @@ import org.bcbs.systemcore.lib.auth.common.AccessToken;
 import org.bcbs.systemcore.lib.auth.common.constraint.GrantType;
 import org.bcbs.systemcore.lib.auth.provider.AuthServerTokenService;
 import org.bcbs.systemcore.lib.auth.provider.ClientDetails;
-import org.bcbs.systemcore.lib.auth.provider.TokenRequest;
+import org.bcbs.systemcore.lib.auth.provider.token.request.TokenRequest;
 import org.bcbs.systemcore.lib.auth.provider.token.AbstractTokenGranter;
 
 public class RefreshTokenGranter extends AbstractTokenGranter {

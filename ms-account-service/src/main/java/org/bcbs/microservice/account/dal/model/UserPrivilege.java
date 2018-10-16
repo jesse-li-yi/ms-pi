@@ -29,6 +29,7 @@ public class UserPrivilege extends GenericEntity<Integer> implements GrantedAuth
     @JsonView(value = {DataView.ExtensiveView.class})
     private String description;
 
+    @NotBlank(message = "Invalid code.")
     @Length(max = 32)
     @Column(length = 32, nullable = false)
     @JsonView(value = {DataView.ExtensiveView.class})

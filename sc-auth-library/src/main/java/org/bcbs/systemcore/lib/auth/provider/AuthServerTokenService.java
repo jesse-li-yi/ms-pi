@@ -11,4 +11,8 @@ public interface AuthServerTokenService {
     AccessToken refreshAccessToken(String tokenValue) throws InvalidTokenException, TokenGrantException;
 
     AccessToken getAccessToken(String tokenValue) throws InvalidTokenException;
+
+    void revokeAccessToken(String tokenValue) throws InvalidTokenException;
+
+    void revokeUserAccessTokens(String username);
 }

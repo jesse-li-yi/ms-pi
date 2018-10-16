@@ -5,12 +5,13 @@ import org.bcbs.microservice.common.constraint.PrivilegeOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "account_privilege",
         indexes = {@Index(name = "fk_ap_account_id", columnList = "account_id"),
                 @Index(name = "fk_ap_privilege_id", columnList = "privilege_id")})
-public class AccountPrivilege {
+public class AccountPrivilege implements Serializable {
 
     @EmbeddedId
     private AccountPrivilegeKey apKey;

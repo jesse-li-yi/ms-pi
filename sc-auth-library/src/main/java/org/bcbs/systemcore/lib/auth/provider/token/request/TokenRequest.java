@@ -1,4 +1,4 @@
-package org.bcbs.systemcore.lib.auth.provider;
+package org.bcbs.systemcore.lib.auth.provider.token.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +13,7 @@ public class TokenRequest {
     @NotNull(message = "Invalid token grant type.")
     private GrantType grantType;
 
-    private String username;
+    private String phoneNo;
 
     private String password;
 
@@ -28,12 +28,12 @@ public class TokenRequest {
         this.grantType = grantType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getPassword() {

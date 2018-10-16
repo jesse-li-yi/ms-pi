@@ -1,13 +1,14 @@
 package org.bcbs.microservice.account.service.impl;
 
 import org.bcbs.microservice.account.dal.model.Account;
+import org.bcbs.microservice.account.dal.model.Account_;
 import org.bcbs.microservice.account.dal.repository.AccountRepository;
 import org.bcbs.microservice.account.service.AccountService;
 import org.bcbs.microservice.common.constraint.RegexPattern;
 import org.bcbs.microservice.service.impl.GenericServiceImpl;
+import org.bcbs.systemcore.lib.auth.common.exception.SignupException;
 import org.bcbs.systemcore.lib.auth.provider.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,18 +41,21 @@ class AccountServiceImpl extends GenericServiceImpl<Account, Integer, AccountRep
     }
 
     @Override
-    public UserDetails signup(String username, String password) throws BadCredentialsException {
-        if (!(Pattern.compile(RegexPattern.PHONE_NO).matcher(username).matches()))
-            throw new BadCredentialsException("Invalid phone number.");
+    public UserDetails signup(String name, String password) throws SignupException {
+        if (!(Pattern.compile(RegexPattern.PHONE_NO).matcher(name).matches()))
+            throw new SignupException("Invalid phone number.");
+
+        if (this.repository.count((root, cq, cb) -> cb.equal(root.get(Account_.phoneNo), name)) > 0)
+            throw new SignupException("The phone number has already been registered.");
 
         if (!(Pattern.compile(RegexPattern.STRONG_CIPHER).matcher(password).matches()))
-            throw new BadCredentialsException("Invalid password.");
+            throw new SignupException("Invalid password.");
 
         Account account = new Account();
-        account.setPhoneNo(username);
+        account.setPhoneNo(name);
         account.setPassword(new BCryptPasswordEncoder().encode(password));
         account.setActive(true);
-        //save(account);
-        return new User(username, password, null);
+        save(account);
+        return account.toUserDetails();
     }
 }

@@ -5,7 +5,7 @@ import org.bcbs.systemcore.lib.auth.common.constraint.GrantType;
 import org.bcbs.systemcore.lib.auth.provider.AuthServerTokenService;
 import org.bcbs.systemcore.lib.auth.provider.ClientDetails;
 import org.bcbs.systemcore.lib.auth.provider.TokenAuthentication;
-import org.bcbs.systemcore.lib.auth.provider.TokenRequest;
+import org.bcbs.systemcore.lib.auth.provider.token.request.TokenRequest;
 import org.bcbs.systemcore.lib.auth.provider.token.AbstractTokenGranter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -27,7 +27,7 @@ public class PasswordTokenGranter extends AbstractTokenGranter {
         Authentication userAuthentication;
         try {
             userAuthentication = this.authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(tokenRequest.getUsername(), tokenRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(tokenRequest.getPhoneNo(), tokenRequest.getPassword()));
         } catch (AuthenticationException ex) {
             throw new InsufficientAuthenticationException(ex.getMessage());
         }

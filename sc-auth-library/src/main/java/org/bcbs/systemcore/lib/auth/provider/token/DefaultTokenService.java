@@ -85,6 +85,20 @@ public class DefaultTokenService implements AuthServerTokenService, ResourceServ
     }
 
     @Override
+    public void revokeAccessToken(String tokenValue) throws InvalidTokenException {
+        AccessToken accessToken = this.tokenStore.readAccessToken(tokenValue);
+        if (accessToken == null)
+            throw new InvalidTokenException();
+
+        this.tokenStore.removeAccessToken(accessToken.getAccessToken());
+        this.tokenStore.removeRefreshToken(accessToken.getRefreshToken());
+    }
+
+    @Override
+    public void revokeUserAccessTokens(String username) {
+    }
+
+    @Override
     public TokenAuthentication loadAuthentication(String tokenValue) throws InvalidTokenException {
         AccessToken accessToken = this.tokenStore.readAccessToken(tokenValue);
         if (accessToken == null)

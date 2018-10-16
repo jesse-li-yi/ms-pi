@@ -5,12 +5,13 @@ import org.bcbs.microservice.common.constraint.PrivilegeOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "group_privilege",
         indexes = {@Index(name = "fk_gp_group_id", columnList = "group_id"),
                 @Index(name = "fk_gp_privilege_id", columnList = "privilege_id")})
-public class GroupPrivilege {
+public class GroupPrivilege implements Serializable {
 
     @EmbeddedId
     private GroupPrivilegeKey gpKey;
